@@ -23,7 +23,7 @@ const DNS_SERVER_ADDRESS = "8.8.8.8";
 const DNS_SERVER_PORT = 53;
 const PROXY_HEALTH_CHECK_API = "https://id1.foolvpn.me/api/v1/check";
 const CONVERTER_URL = "https://api.foolvpn.me/convert";
-const DONATE_LINK = "https://trakteer.id/dickymuliafiqri/tip";
+const DONATE_LINK = "https://t.me/club_gratis";
 const BAD_WORDS_LIST =
   "https://gist.githubusercontent.com/adierebel/a69396d79b787b84d89b45002cb37cd6/raw/6df5f8728b18699496ad588b3953931078ab9cf1/kata-kasar.txt";
 const PROXY_PER_PAGE = 24;
@@ -118,7 +118,7 @@ function getAllConfig(request, hostName, proxyList, page = 0) {
 
     // Build HTML
     const document = new Document(request);
-    document.setTitle("Welcome to <span class='text-blue-500 font-semibold'>Nautica</span>");
+    document.setTitle("Welcome to <span class='text-blue-500 font-semibold'>CLUB GRATIS</span>");
     document.addInfo(`Total: ${proxyList.length}`);
     document.addInfo(`Page: ${page}/${Math.floor(proxyList.length / PROXY_PER_PAGE)}`);
 
@@ -128,7 +128,7 @@ function getAllConfig(request, hostName, proxyList, page = 0) {
 
       const { proxyIP, proxyPort, country, org } = proxy;
 
-      uri.searchParams.set("path", `/${proxyIP}-${proxyPort}`);
+      uri.searchParams.set("path", `/gratis/${proxyIP}-${proxyPort}`);
 
       const proxies = [];
       for (const port of PORTS) {
@@ -142,7 +142,7 @@ function getAllConfig(request, hostName, proxyList, page = 0) {
               "plugin",
               `v2ray-plugin${
                 port == 80 ? "" : ";tls"
-              };mux=0;mode=websocket;path=/${proxyIP}-${proxyPort};host=${hostName}`
+              };mux=0;mode=websocket;path=/gratis/${proxyIP}-${proxyPort};host=${hostName}`
             );
           } else {
             uri.username = uuid;
@@ -313,7 +313,7 @@ export default {
                   uri.username = btoa(`none:${uuid}`);
                   uri.searchParams.set(
                     "plugin",
-                    `v2ray-plugin${port == 80 ? "" : ";tls"};mux=0;mode=websocket;path=/${proxy.proxyIP}-${
+                    `v2ray-plugin${port == 80 ? "" : ";tls"};mux=0;mode=websocket;path=/gratis/${proxy.proxyIP}-${
                       proxy.proxyPort
                     };host=${APP_DOMAIN}`
                   );
@@ -323,7 +323,7 @@ export default {
 
                 uri.searchParams.set("security", port == 443 ? "tls" : "none");
                 uri.searchParams.set("sni", port == 80 && protocol == reverse("sselv") ? "" : APP_DOMAIN);
-                uri.searchParams.set("path", `/${proxy.proxyIP}-${proxy.proxyPort}`);
+                uri.searchParams.set("path", `/gratis/${proxy.proxyIP}-${proxy.proxyPort}`);
 
                 uri.hash = `${result.length + 1} ${getFlagEmoji(proxy.country)} ${proxy.org} WS ${
                   port == 443 ? "TLS" : "NTLS"
@@ -1072,7 +1072,7 @@ class CloudflareApi {
 // HTML page base
 /**
  * Cloudflare worker gak support DOM API, tetapi mereka menggunakan HTML Rewriter.
- * Tapi, karena kelihatannta repot kalo pake HTML Rewriter. Kita pake cara konfensional saja...
+ * Tapi, karena kelihatannya repot kalo pake HTML Rewriter. Kita pake cara konfensional saja...
  */
 let baseHTML = `
 <!DOCTYPE html>
